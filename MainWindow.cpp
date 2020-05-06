@@ -4,6 +4,9 @@
 #include <QtDebug>
 #include <sommet.h>
 
+int maxSom=0;
+int maxArret=0;
+int maxPoid=0;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , my_ui(new Ui::MainWindow)
@@ -49,7 +52,7 @@ sommet* MainWindow::GetSomById(int id){
 }
 
 void MainWindow::addEdge(int a,int b ,int c){
-    bool ok=false;
+
 
      // ajouter une condition if( sommet a different du sommet b)
     edge* newOne = new edge(GetSomById(a),GetSomById(b),c);
@@ -68,8 +71,13 @@ void MainWindow::randomOne(int som,int aret,int maxP){
     }
     for(int i=0;i<aret;i++){
         int Poi=rand() % maxP;
-        int dst=rand() % listeSom.size() + 1 ;
-        int src=rand() % listeSom.size() + 1 ;
+        //ajouter un while dst est diff de src
+        int dst;
+        int src;
+        do{
+         dst=rand() % listeSom.size() + 1 ;
+         src=rand() % listeSom.size() + 1 ;}while(dst==src);
+
         addEdge(src,dst,Poi);
 
     }
@@ -114,7 +122,7 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_3_clicked()
 {   // ajouter des spin box pour savoir les valeurs donner par lutilisateur
     //sinon utiliser la meme methode de bouton d'ajout d'arete mais je vous conseille d'utiliser les spin box c'est plus pratique.
-    randomOne(5,9,100);
+    randomOne(maxSom,maxArret,maxPoid);
 }
 //exemple de coloration d'un resultat
 void MainWindow::colorier(){
@@ -122,15 +130,51 @@ void MainWindow::colorier(){
     //on utilisera un bool avec la fonction de painter d'arrete
     // dans cette fonction le bool du coloriage va etre true pour chaque arete du resultat et a la fin on va faire appel a update();
     for(int e=0;e<listeEdge.size();e++){
+
         if(listeEdge[e]->poid>10){
+
             listeEdge[e]->colorier=true;
             listeEdge[e]->update();
+
         }
     }
+
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
     colorier();
 
+}
+
+
+void MainWindow::on_spinBox_valueChanged(int arg1)
+{
+   maxSom=arg1;
+}
+
+void MainWindow::on_spinBox_2_valueChanged(int arg1)
+{
+    maxArret=arg1;
+}
+
+void MainWindow::on_spinBox_3_valueChanged(int arg1)
+{
+    maxPoid=arg1;
+}
+
+void MainWindow::deleteSommet(int id){
+
+    GetSomById(id);
+
+    mascene->removeItem(GetSomById(id));
+    listeSom.remove(id-1);
+    qInfo()<<"le size de la liste de sommet est "<<listeSom.size();
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    bool ok=false;
+        int  id= QInputDialog::getInt(nullptr,"node src","Quel est l id du source?",1,1,listeSom.size(),1,&ok);
+        deleteSommet(id);
 }

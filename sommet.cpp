@@ -68,7 +68,9 @@ void sommet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     painter->setRenderHint(QPainter::Antialiasing,true);
 
     painter->setPen(Qt::NoPen);
+
     painter->setBrush(Qt::yellow);
+
     painter->drawEllipse(-10, -10, 20, 20);
     painter->setPen(QPen(Qt::black, 0));
     painter->drawEllipse(-10, -10, 20, 20);
@@ -92,9 +94,11 @@ QVector<sommet*> liaison;
 // une autre methode d'ajout d'arrete entre deux sommet  !!ça sera peut etre plus mieux d'utiliser dans cette methode les signals et les slots!!
 void sommet::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
     //ajouter une coloration
+
     if(liaison.size()<2){
     liaison.push_back(this);}
     if(liaison.size()==2){
+
         edge* newOne = new edge(liaison[0],liaison[1],10);// ajouter une input dialog pour le poid car ici ça sera toujours 10
         scene()->addItem(newOne);
         liaison.clear();

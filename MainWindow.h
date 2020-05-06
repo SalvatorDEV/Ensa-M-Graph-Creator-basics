@@ -26,7 +26,7 @@ public:
 //liste des nodes
     QVector <sommet *> listeSom;
     QVector <edge *> listeEdge;
-
+     void deleteSommet(int id);
     sommet* GetSomById(int id);
     void colorier();
 public slots:
@@ -45,6 +45,16 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_pushButton_4_clicked();
+
+
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_spinBox_2_valueChanged(int arg1);
+
+    void on_spinBox_3_valueChanged(int arg1);
+
+    void on_pushButton_5_clicked();
 
 private:
     friend class sommet;

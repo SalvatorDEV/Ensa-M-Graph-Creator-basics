@@ -94,6 +94,9 @@ void MainWindow::randomOne(int som,int aret,int maxP){
         // alors si la valeur darrete est plus que le max on va la changer au max .
          //if(le nombre donner d arete par lutilisateur > le maximum possible darrete qu'on peut créer avec le nombre de sommets donné)
         // alors le nombre donner d arete par lutilisateur = le maximum possible darrete qu'on peut créer avec le nombre de sommets donné !!!!
+        //§§§ methode un peux plus compliqué mais vraiment plus rapide surtout dans les graphs de grande taille :
+            // meme principe que la derniere sauf qu'on va changer la boucle for que pour boucler sur une liste darrete qui ont le sommet 'src'
+            // et le sommet 'dst' : pour cela vous devez créer une autre liste darrete dans la classe sommet qui sera la liste des arretes d'un sommet
 
 
 }
